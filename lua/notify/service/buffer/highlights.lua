@@ -150,7 +150,7 @@ end
 function NotifyBufHighlights:set_opacity(alpha)
   if
     not self._treesitter_redefined
-    and vim.api.nvim_buf_get_option(self.buffer, "filetype") ~= "notify"
+    and vim.api.nvim_get_option_value("filetype", { buf = self.buffer }) ~= "notify"
   then
     self:_redefine_treesitter()
   end

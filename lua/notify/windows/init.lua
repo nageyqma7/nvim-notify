@@ -129,7 +129,7 @@ function WindowAnimator:_start_timer(win)
     if buf_time == true then
       buf_time = nil
     end
-    local timer = vim.loop.new_timer()
+    local timer = vim.uv.new_timer()
     self.timers[win] = timer
     timer:start(
       buf_time,

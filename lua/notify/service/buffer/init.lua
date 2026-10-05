@@ -100,13 +100,13 @@ function NotificationBuf:render()
   local buf = self._buffer
 
   local render_namespace = require("notify.render.base").namespace()
-  api.nvim_buf_set_option(buf, "filetype", "notify")
-  api.nvim_buf_set_option(buf, "modifiable", true)
+  api.nvim_set_option_value("filetype", "notify", { buf = buf })
+  api.nvim_set_option_value("modifiable", true, { buf = buf })
   api.nvim_buf_clear_namespace(buf, render_namespace, 0, -1)
 
   notif.render(buf, notif, self.highlights, self._config)
 
-  api.nvim_buf_set_option(buf, "modifiable", false)
+  api.nvim_set_option_value("modifiable", false, { buf = buf })
 
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
   local width = self._config.minimum_width()

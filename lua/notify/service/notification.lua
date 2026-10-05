@@ -16,7 +16,12 @@
 local Notification = {}
 
 local level_maps = vim.tbl_extend("keep", {}, vim.log.levels)
-vim.tbl_add_reverse_lookup(level_maps)
+do
+  local names = vim.tbl_keys(level_maps)
+  for _, name in ipairs(names) do
+    level_maps[level_maps[name]] = name
+  end
+end
 
 function Notification:new(id, message, level, opts, config)
   if type(level) == "number" then
@@ -31,11 +36,9 @@ function Notification:new(id, message, level, opts, config)
   if type(title) == "string" then
     title = { title, vim.fn.strftime("%H:%M", time) }
   end
-  vim.validate({
-    message = { message, "table" },
-    level = { level, "string" },
-    title = { title, "table" },
-  })
+  vim.validate("message", message, "table")
+  vim.validate("level", level, "string")
+  vim.validate("title", title, "table")
   local notif = {
     id = id,
     message = message,

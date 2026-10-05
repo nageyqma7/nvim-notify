@@ -155,7 +155,7 @@ function Config.setup(custom_config)
   local stages = config.stages()
 
   local needs_opacity =
-    vim.tbl_contains({ BUILTIN_STAGES.FADE_IN_SLIDE_OUT, BUILTIN_STAGES.FADE }, stages)
+    vim.list_contains({ BUILTIN_STAGES.FADE_IN_SLIDE_OUT, BUILTIN_STAGES.FADE }, stages)
 
   user_config.background_colour = validate_highlight(user_config.background_colour, needs_opacity)
 
